@@ -1,15 +1,15 @@
-@Library('Shared') _
+@Library('shared') _
 
 pipeline {
     agent any
     
     environment {
         // Updated image names for QBShop project (DEV)
-        DOCKER_IMAGE_NAME = 'satyamsri/qbshop-app'
-        DOCKER_MIGRATION_IMAGE_NAME = 'satyamsri/qbshop-migration'
+        DOCKER_IMAGE_NAME = 'ritikasuneriya/qbshop-app'
+        DOCKER_MIGRATION_IMAGE_NAME = 'ritikasuneriya/qbshop-migration'
         DOCKER_IMAGE_TAG = "${BUILD_NUMBER}"
         GITHUB_CREDENTIALS = credentials('github-credentials')
-        GIT_BRANCH = "dev"
+        GIT_BRANCH = "main"
     }
     
     stages {
@@ -25,7 +25,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    clone("https://github.com/Satyams-git/Qualibytes-Ecommerce.git", "dev")
+                    clone("https://github.com/Ritikasuneriya/Qualibytes-Ecommerce.git", "main")
                 }
             }
         }
@@ -109,7 +109,7 @@ pipeline {
                             docker_push(
                                 imageName: env.DOCKER_IMAGE_NAME,
                                 imageTag: env.DOCKER_IMAGE_TAG,
-                                credentials: 'docker-hub-credentials'
+                                credentials: 'docker'
                             )
                         }
                     }
@@ -121,7 +121,7 @@ pipeline {
                             docker_push(
                                 imageName: env.DOCKER_MIGRATION_IMAGE_NAME,
                                 imageTag: env.DOCKER_IMAGE_TAG,
-                                credentials: 'docker-hub-credentials'
+                                credentials: 'docker'
                             )
                         }
                     }
