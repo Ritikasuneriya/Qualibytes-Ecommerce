@@ -2,7 +2,7 @@
 
 # =============================================================
 # QualiBytesShop - EC2 Bootstrap Script (user_data)
-# Installs: Java 21, Jenkins, Docker, Trivy, AWS CLI, Helm, kubectl
+# Installs: Java 21, Jenkins, Docker, Trivy, AWS CLI, Helm, kubectl, eksctl
 # OS: Ubuntu 24.04 LTS
 # Last Updated: June 2026
 # =============================================================
@@ -36,7 +36,7 @@ sudo systemctl enable jenkins
 sudo apt-get install -y docker.io
 
 # Add current user and jenkins user to docker group
-sudo usermod -aG docker $USER
+sudo usermod -aG docker Ubuntu
 sudo usermod -aG docker jenkins
 
 sudo systemctl restart docker
@@ -55,7 +55,10 @@ sudo apt-get update -y
 sudo apt-get install -y trivy
 
 # --- AWS CLI Installation ---
-sudo snap install aws-cli --classic
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+apt install unzip -y 
+unzip awscliv2.zip
+sudo ./aws/install
 
 # --- Helm Installation (Kubernetes Package Manager) ---
 sudo snap install helm --classic
