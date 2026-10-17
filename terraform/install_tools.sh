@@ -43,16 +43,11 @@ sudo systemctl restart docker
 sudo systemctl restart jenkins
 
 # --- Trivy Installation (Container Security Scanner) ---
-sudo apt-get install -y wget apt-transport-https gnupg lsb-release snapd
-
-wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key \
-  | sudo gpg --dearmor -o /usr/share/keyrings/trivy-keyring.gpg
-
-echo "deb [signed-by=/usr/share/keyrings/trivy-keyring.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" \
-  | sudo tee /etc/apt/sources.list.d/trivy.list > /dev/null
-
-sudo apt-get update -y
-sudo apt-get install -y trivy
+sudo apt-get install wget gnupg
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy -y 
 
 # --- AWS CLI Installation ---
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
