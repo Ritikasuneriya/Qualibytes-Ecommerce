@@ -17,6 +17,9 @@ sudo apt upgrade -y
 sudo apt install -y fontconfig openjdk-21-jre
 sudo update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
 
+# Install nodejs
+sudo apt-get install -y nodejs npm
+
 # --- Jenkins Installation ---
 # Fetch GPG key from keyserver (jenkins.io key file method is unreliable)
 sudo gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 7198F4B714ABFC68
